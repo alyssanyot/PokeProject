@@ -11,17 +11,15 @@ request.onload = function() {
 
   let pokeList = document.getElementById('pokelist');
   
-  //Create the initial row and append it to the container
-  let row = document.createElement('div');
-  row.className = "row";
-  pokeList.appendChild(row);
-  
+  //Create the initial row
+  let row = null;
+
   //Check to make sure that we successfully received the data 
   if (request.status >= 200 && request.status < 400) {
     data.results.forEach(pokemon => {
         
         //Check if this is the start of a new row; if so, create a row and append it to the container
-        if (colCounter == 0) {
+        if (colCounter % 4 == 0) {
           row = document.createElement('div');
           row.className = "row";
           pokeList.appendChild(row);
@@ -37,15 +35,11 @@ request.onload = function() {
     
         //Update counter for number of columns currently in row
         colCounter++;
-        //If we have reached the max number of columns in a row, reset the counter
-        if(colCounter == 4){
-          colCounter = 0; 
-        } 
+       
         card.appendChild(p);
         row.appendChild(card);
     });
   }
-
 };
 
 request.send();
