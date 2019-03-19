@@ -1,10 +1,9 @@
 let request = new XMLHttpRequest();
 let url = "https://pokeapi.co/api/v2/pokemon";
-let colCounter = 0;
+let pokemonCounter = 0;
 
 request.open("GET", url, true);
 
-//Callback function executes when request is successfully completed
 request.onload = function() {
   // Begin accessing JSON data here. Data stored in request.response
   let data = JSON.parse(this.response);
@@ -19,7 +18,7 @@ request.onload = function() {
     data.results.forEach(pokemon => {
         
         //Check if this is the start of a new row; if so, create a row and append it to the container
-        if (colCounter % 4 == 0) {
+        if (pokemonCounter % 4 == 0) {
           row = document.createElement('div');
           row.className = "row";
           pokeList.appendChild(row);
@@ -34,7 +33,7 @@ request.onload = function() {
         p.textContent = pokemon.name;
     
         //Update counter for number of columns currently in row
-        colCounter++;
+        pokemonCounter++;
        
         card.appendChild(p);
         row.appendChild(card);
